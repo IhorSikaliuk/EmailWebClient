@@ -6,7 +6,7 @@ namespace EmailWebClient.Models
     {
         protected override void Seed(DataBaseContext context)
         {
-            context.ServerConfig.Add(new ServerConfig { Name = "Ukr.net", Ip = "" });
+            context.ServerConfig.Add(new ServerConfig { Name = "Ukr.net", Ip = "imap.ukr.net", Port = 993, Ssl = true });
 
             base.Seed(context);
         }
