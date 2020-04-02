@@ -1,13 +1,12 @@
-﻿using System;
+﻿using EmailWebClient.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EmailWebClient.Controllers
 {
     public class HomeController : Controller
     {
+        private DataBaseContext DBContext = new DataBaseContext();
         public ActionResult Index()
         {
             return View();
