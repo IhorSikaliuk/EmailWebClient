@@ -18,9 +18,9 @@
         @using (Html.BeginForm(FormMethod.Post))
         {
             <p>Введите данные для входа на почтовый ящик:</p>
-            <input type="email" name="Email" placeholder="E-mail" />
-            <input type="password" name="Password" placeholder="Password" />
-            @Html.DropDownList("Server.Id", new SelectList(ViewBag.Servers, "Id", "Name"));
+            <input type="email" name="Email" placeholder="E-mail" required/>
+            <input type="password" name="Password" placeholder="Password" required/>
+            @Html.DropDownList("Server.Id", new SelectList(ViewBag.Servers, "Id", "Name", selectedValue:ViewBag.ServerId));
             <br>
             <input type="submit" name="Войти" />
         }

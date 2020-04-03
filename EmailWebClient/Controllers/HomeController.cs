@@ -1,9 +1,10 @@
-﻿using EmailWebClient.Models;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using EmailWebClient.Models;
 using MailKit;
 using MimeKit;
-using System;
+using MailKit.Net.Imap;
 
 namespace EmailWebClient.Controllers
 {
@@ -19,12 +20,16 @@ namespace EmailWebClient.Controllers
         }
         public ActionResult Index() {
             ViewBag.Servers = DBContext.ServerConfig;
-            
+            if (Request.Cookies["serverId"] != null)
+                ViewBag.ServerId = Request.Cookies["serverId"].Value;
+
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(Authentication login) {
+            Response.Cookies["serverId"].Value = login.Server.Id.ToString();
             try {
                 login.Server = GetServer(login.Server.Id);
             }
@@ -32,7 +37,15 @@ namespace EmailWebClient.Controllers
                 ViewData["Login error"] = "Неизвесная ошибка";
                 return Index();
             }
-            ViewBag.Login = login;
+            
+            ImapClient client = new ImapClient();
+            try {
+                client.Connect(login.Server.Ip, login.Server.Port, useSsl: login.Server.Ssl);
+                client.Authenticate(login.Email, login.Password);
+            }
+            catch(Exception exception) {
+                ViewData["Login error"] = exception.ToString();
+            }
             Session["login"] = login;
 
             return View("test");
