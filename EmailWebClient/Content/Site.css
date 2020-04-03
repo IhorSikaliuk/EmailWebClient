@@ -22,3 +22,19 @@ select,
 textarea {
     max-width: 280px;
 }
+
+div {
+    outline: 2px solid #000;
+    border: 3px solid #fff;
+}
+
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.error {
+    color: red;
+}
