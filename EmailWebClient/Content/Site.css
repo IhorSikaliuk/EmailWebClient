@@ -1,6 +1,8 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    height: 100%;
+    margin: 0px;
+    padding: 0;
+    overflow: hidden;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -26,6 +28,15 @@ textarea {
 div {
     outline: 2px solid #000;
     border: 3px solid #fff;
+}
+
+.sidelist {
+    float: left;
+    max-width: 300px;
+    min-width: 200px;
+    position: fixed;
+    padding-top: 66px;
+    height: 100%;
 }
 
 .login {

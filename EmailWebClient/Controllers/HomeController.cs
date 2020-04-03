@@ -18,6 +18,11 @@ namespace EmailWebClient.Controllers
 
             throw new IndexOutOfRangeException();
         }
+        private MimeMessage[] GetMessages(IMailFolder folder) {
+
+
+            return new MimeMessage[0];
+        }
         public ActionResult Index() {
             ViewBag.Servers = DBContext.ServerConfig;
             if (Request.Cookies["serverId"] != null)
@@ -26,7 +31,6 @@ namespace EmailWebClient.Controllers
 
             return View();
         }
-
         [HttpPost]
         public ActionResult Index(Authentication login) {
             Response.Cookies["serverId"].Value = login.Server.Id.ToString();
@@ -46,7 +50,16 @@ namespace EmailWebClient.Controllers
             catch(Exception exception) {
                 ViewData["Login error"] = exception.ToString();
             }
+            if (!client.IsAuthenticated) {
+                ViewData["Login error"] = "Неверные ел. почта и/или пароль";
+                return Index();
+            }
             Session["login"] = login;
+            Session["connection"] = client;
+            IMailFolder inbox = client.Inbox;
+            inbox.Open(FolderAccess.ReadWrite);
+            Session["inbox"] = inbox;
+
 
             return View("test");
         }
