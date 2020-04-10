@@ -3,12 +3,20 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="sidelist">
-    <p>@Session.IsNewSession</p>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-</div>
 
-@if (@Session["login"] == null) {
+
+@{ if (@Session.Count > 0) {
+    @section Scripts {
+        @Scripts.Render("/Scripts/sidelist.loader.js")
+    }
+    <div id="sidelist">
+        @*{Html.RenderPartial("MailList");}*@
+        <p id="empty">Пусто</p>
+        <p id="loading">Грузим письма...</p>
+    </div>
+    
+}
+else{
     <div class="login">
         @if (ViewData["Login error"] != null)
         {
@@ -17,11 +25,11 @@
         @using (Html.BeginForm(FormMethod.Post))
         {
             <p>Введите данные для входа на почтовый ящик:</p>
-            <input type="email" name="Email" placeholder="E-mail" required/>
-            <input type="password" name="Password" placeholder="Password" required/>
-            @Html.DropDownList("Server.Id", new SelectList(ViewBag.Servers, "Id", "Name", selectedValue:ViewBag.ServerId));
+            <input type="email" name="Email" placeholder="E-mail" required />
+            <input type="password" name="Password" placeholder="Password" required />
+            @Html.DropDownList("Server.Id", new SelectList(ViewBag.Servers, "Id", "Name", selectedValue: ViewBag.ServerId));
             <br>
-            <input type="submit" name="Войти" />
+            <input type="submit" value="Войти"/>
         }
     </div>
-}
+}}

@@ -1,0 +1,10 @@
+﻿@for (int i = 0; i < ViewBag.Count; i++)
+{
+    <a href="~/">
+        <div class="message">
+            <p> Тема: @ViewBag.Subjects[i]</p>
+            <br />
+            <p>От: @ViewBag.Senders[i]</p>
+            <p>@ViewBag.Dates[i]</p>
+        </div>
+    </a>}
