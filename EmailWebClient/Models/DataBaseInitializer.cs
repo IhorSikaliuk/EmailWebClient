@@ -8,6 +8,7 @@ namespace EmailWebClient.Models
         {
             context.ServerConfig.Add(new ServerConfig { Name = "Ukr.net", Ip = "imap.ukr.net", Port = 993, Ssl = true });
             context.ServerConfig.Add(new ServerConfig { Name = "Gmail.com", Ip = "imap.gmail.com", Port = 993, Ssl = true });
+            context.ServerConfig.Add(new ServerConfig { Name = "Outlook", Ip = "imap-mail.outlook.com", Port = 993, Ssl = true });
 
             base.Seed(context);
         }
