@@ -1,9 +1,18 @@
 ﻿<div id="mailinfo">
-    <p id="title">Заголовок сооооооооооооооооооооооооообщеня поыфпдлвоы лдопдв</p>
-    <p id="sender">Отправитель дываоп лвыап</p>
-    <p id="datetime">дата и время</p>
+    <p id="title">@Model.Subject</p>
+    <p id="sender">@Model.From</p>
+    <p id="datetime">@Model.Date</p>
 </div>
 <div id="mail">
-    @ViewBag.Text
-    @ViewBag.Body
+    @{  if (@Model.HtmlBody != MvcHtmlString.Empty)
+        {
+            @Model.HtmlBody
+        }
+        else
+        {
+            <div id="textbody">
+                @Model.TextBody
+            </div>
+        }
+    }
 </div>

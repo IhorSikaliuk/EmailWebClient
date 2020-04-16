@@ -52,11 +52,12 @@ namespace EmailWebClient.Controllers
         }
         public ActionResult OpenMail(uint Uid, bool seen = false) {
             IMailFolder folder = (IMailFolder)Session["folder"];
-            ViewBag.Text = new MvcHtmlString(folder.GetMessage(new UniqueId(Uid)).TextBody);
-            ViewBag.Body = new MvcHtmlString(folder.GetMessage(new UniqueId(Uid)).HtmlBody);
+            UniqueId uid = new UniqueId(Uid);
+            MimeMessage message = folder.GetMessageAsync(uid).Result;
             if (seen) folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
+            Mail mail = new Mail(uid, message);
 
-            return PartialView();
+            return PartialView(mail);
         }
     }
 }
