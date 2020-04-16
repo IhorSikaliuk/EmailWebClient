@@ -7,13 +7,14 @@
 
 @{ if (@Session.Count > 0) {
     @section Scripts {
-        @Scripts.Render("/Scripts/sidelist.loader.js")
+        @Scripts.Render($"/Scripts/sidelist.loader.js?v={DateTime.Now.Millisecond}")
     }
     <div id="sidelist">
         @*{Html.RenderPartial("MailList");}*@
         <p id="empty">Пусто</p>
         <p id="loading">Грузим письма...</p>
     </div>
+    <div id="content"></div>
     
 }
 else{

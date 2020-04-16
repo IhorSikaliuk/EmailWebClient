@@ -47,26 +47,22 @@ namespace EmailWebClient.Controllers
             catch(Exception exception) {
                 ViewData["Login error"] = exception.ToString();
             }
-            if (!client.IsAuthenticated) {
-                ViewData["Login error"] = "Неверные ел. почта и/или пароль";
+            if (!client.IsConnected) {
+                ViewData["Login error"] = $"Почтовый сервер {login.Server.Name} не доступен. Попробуйте позже.";
                 return Index();
             }
+            else if (!client.IsAuthenticated) {
+                ViewData["Login error"] = "Неверные ел. почта и/или пароль.";
+                return Index();
+            }
+
             Session["login"] = login;
             Session["connection"] = client;
-
             IMailFolder inbox = client.Inbox;
-            inbox.Open(FolderAccess.ReadOnly);
-            
             Session["folder"] = inbox;
-            Session["messages"] = new List<MimeMessage>();
+            Session["messages"] = null;
             
             return Index();
-        }
-
-        public ActionResult Mail(int id) {
-            
-
-            return View("Index");
         }
 
         public ActionResult About()

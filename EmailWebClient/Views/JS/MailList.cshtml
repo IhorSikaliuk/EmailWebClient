@@ -1,10 +1,21 @@
-﻿@for (int i = 0; i < ViewBag.Count; i++)
+﻿@for (int i = 0; i < @Model.Count; i++)
 {
-    <a href="~/">
-        <div class="message">
-            <p> Тема: @ViewBag.Subjects[i]</p>
-            <br />
-            <p>От: @ViewBag.Senders[i]</p>
-            <p>@ViewBag.Dates[i]</p>
-        </div>
-    </a>}
+    if (@Model[i].Seen) {
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid">
+            <div class="message">
+                <p class="from">@Model[i].From</p>
+                <p class="date">@Model[i].Date.ToString("dd\nMMM")</p>
+                <p class="subject">@Model[i].Subject</p>
+            </div>
+        </a>
+    }
+    else {
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid&seen=true">
+            <div class="newmessage">
+                <p class="from">@Model[i].From</p>
+                <p class="date">@Model[i].Date.ToString("dd\nMMM")</p>
+                <p class="subject">@Model[i].Subject</p>
+            </div>
+        </a>
+    }
+}
