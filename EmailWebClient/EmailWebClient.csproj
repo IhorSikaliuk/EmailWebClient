@@ -154,6 +154,7 @@
     <Content Include="App_Data\EmailClientDB_log.ldf">
       <DependentUpon>EmailClientDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\images\light.png" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

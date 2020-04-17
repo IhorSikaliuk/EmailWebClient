@@ -1,12 +1,10 @@
-﻿body {
-    height: 100%;
+﻿html body {
+    min-height: 100%;
     margin: 0;
     padding: 0;
+    height: 100vh !important;
+    width: 100vw !important;
     overflow: hidden;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #333;
     background-color: #DDD;
 }
 
@@ -34,12 +32,12 @@ div {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+    line-height: 1.42857143;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
 }
 
-a {
-    color: #337ab7;
-    text-decoration: none;
-}
 
 #navbar {
     width: 100%;
@@ -49,6 +47,11 @@ a {
     z-index: 1;
     position: fixed;
 }
+
+    #navbar a {
+        color: #337ab7;
+        text-decoration: none;
+    }
 
 .navbar-brand {
     float: left;
@@ -85,6 +88,11 @@ a {
         display: none;
     }
 
+    #sidelist a {
+        color: #337ab7;
+        text-decoration: none;
+    }
+
 .message {
     background-color: #dde;
     width: 250px;
@@ -92,20 +100,22 @@ a {
     outline: 1px;
     outline-color: #aaa;
     outline-style: auto;
+    transition: 0.3s;
 }
 
     .message:hover {
-        background-color: #99d;
+        background-color: #b7c5ff;
         outline-style: none;
     }
 
 .newmessage {
-    background-color: #92acd8;
     width: 250px;
     height: 84px;
     outline: 1px;
     outline-color: #aaa;
     outline-style: auto;
+    transition: 0.3s;
+    background: url(/Content/images/light.png) no-repeat 3%, #c1e5f5;
 }
 
     .newmessage:hover {
@@ -161,7 +171,11 @@ a {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+    background-color: #ececec;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 4px 8px 20px 7px #82a4b952;
 }
 
 #exit {
@@ -180,30 +194,29 @@ a {
     padding: 60px 0 0 250px;
 }
 
-#mailinfo {
+#content #mailinfo {
     background-color: #eee;
     min-height: 40px;
-    max-height: 100px;
+    max-height: 130px;
     width: -webkit-fill-available;
-    padding-bottom: 10px;
-
+    padding-bottom: 8px;
 }
 
-#title {
+#mailinfo #title {
     margin: 0;
     padding: 5px;
     font-weight: bolder;
     font-size: x-large;
 }
 
-#sender {
+#mailinfo #sender {
     display: inline-block;
     margin: 0;
     padding: 0px 6px 6px 6px;
     font-size: 15px;
 }
 
-#datetime {
+#mailinfo #datetime {
     float: right;
     margin: 0;
     padding: 0px 6px 6px 6px;
@@ -213,9 +226,19 @@ a {
 #mail {
     overflow: auto;
     height: -webkit-fill-available;
-    text-align: -webkit-center;
     width: -webkit-fill-available;
     text-align: -webkit-center;
-    position: fixed;
-    margin-right: 250px;
+    position: initial;
+    padding-bottom: 7%;
+}
+
+    #mail p {
+        text-align: justify;
+    }
+
+#textbody {
+    width: fit-content;
+    text-align: left;
+    max-width: 70vh;
+    padding: 20px 0 0 40px;
 }

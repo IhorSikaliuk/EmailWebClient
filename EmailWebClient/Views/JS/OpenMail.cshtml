@@ -3,16 +3,18 @@
     <p id="sender">@Model.From</p>
     <p id="datetime">@Model.Date</p>
 </div>
-<div id="mail">
-    @{  if (@Model.HtmlBody != MvcHtmlString.Empty)
+<section id="mail">
+    @{ if (@Model.HtmlBody.ToHtmlString().Length > 0)
         {
             @Model.HtmlBody
         }
         else
         {
             <div id="textbody">
-                @Model.TextBody
+                <p>
+                    @Model.TextBody
+                </p>
             </div>
         }
     }
-</div>
+</section>

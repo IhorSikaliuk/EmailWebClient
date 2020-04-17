@@ -30,7 +30,8 @@ namespace EmailWebClient.Models
             Subject = message.Subject;
             From = message.From.ToString();
             Date = message.Date.DateTime;
-            TextBody = new MvcHtmlString(message.TextBody);
+            if (message.TextBody != null)
+                TextBody = new MvcHtmlString(message.TextBody.Replace(System.Environment.NewLine, "<br>"));
             HtmlBody = new MvcHtmlString(message.HtmlBody);
         }
     }
