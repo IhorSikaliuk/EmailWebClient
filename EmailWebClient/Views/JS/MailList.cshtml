@@ -3,18 +3,18 @@
     if (@Model[i].Seen) {
         <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid">
             <div class="message">
-                <p class="from">@Model[i].From</p>
-                <p class="date">@Model[i].Date.ToString("dd\nMMM")</p>
-                <p class="subject">@Model[i].Subject</p>
+                <span class="from">@Model[i].From</span>
+                <span class="date">@Model[i].Date.ToString("dd\nMMM")</span>
+                <span class="subject">@Model[i].Subject</span>
             </div>
         </a>
     }
     else {
-        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid&seen=true">
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid&seen=false">
             <div class="newmessage">
-                <p class="from">@Model[i].From</p>
-                <p class="date">@Model[i].Date.ToString("dd\nMMM")</p>
-                <p class="subject">@Model[i].Subject</p>
+                <span class="from">@Model[i].From</span>
+                <span class="date">@Model[i].Date.ToString("dd\nMMM")</span>
+                <span class="subject">@Model[i].Subject</span>
             </div>
         </a>
     }

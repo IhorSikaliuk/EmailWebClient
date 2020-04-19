@@ -30,7 +30,7 @@ else{
             <input type="password" name="Password" placeholder="Password" required />
             @Html.DropDownList("Server.Id", new SelectList(ViewBag.Servers, "Id", "Name", selectedValue: ViewBag.ServerId));
             <br>
-            <input type="submit" value="Войти"/>
+            <button type="submit">Войти</button>
         }
     </div>
 }}

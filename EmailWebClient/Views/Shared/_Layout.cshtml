@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="navbar">
-        @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        @Html.ActionLink("Email", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         <ul class="top">
             <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
             <li>@Html.ActionLink("О программе", "About", "Home")</li>
@@ -21,7 +21,7 @@
         </ul>
         @if (@Session.Count > 0)
         {
-            @Html.ActionLink("Выйти", "Exit", "Home", new { @id = "exit" })
+            @Html.ActionLink("Выйти", "Exit", "Home", new { @id = "exit"})
         }
     </div>
     @RenderBody()

@@ -42,16 +42,24 @@ namespace EmailWebClient.Controllers
             ImapClient client = new ImapClient();
             try {
                 client.Connect(login.Server.Ip, login.Server.Port, useSsl: login.Server.Ssl);
-                client.Authenticate(login.Email, login.Password);
             }
-            catch(Exception exception) {
-                ViewData["Login error"] = exception.ToString();
+            catch(Exception) {
+                ViewData["Login error"] = $"Почтовый сервер {login.Server.Name} не доступен. Попробуйте позже.";
+                return Index();
             }
             if (!client.IsConnected) {
                 ViewData["Login error"] = $"Почтовый сервер {login.Server.Name} не доступен. Попробуйте позже.";
                 return Index();
             }
-            else if (!client.IsAuthenticated) {
+
+            try {
+                client.Authenticate(login.Email, login.Password);
+            }
+            catch (Exception) {
+                ViewData["Login error"] = "Неверные ел. почта и/или пароль.";
+                return Index();
+            }
+            if (!client.IsAuthenticated) {
                 ViewData["Login error"] = "Неверные ел. почта и/или пароль.";
                 return Index();
             }

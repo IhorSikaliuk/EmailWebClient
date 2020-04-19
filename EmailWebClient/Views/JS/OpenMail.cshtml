@@ -3,6 +3,12 @@
     <p id="sender">@Model.From</p>
     <p id="datetime">@Model.Date</p>
 </div>
+<div id="delete">
+    <a href="/JS/DeleteMail?Uid=@Model.Uid">
+        <img src="/Content/images/delete.png" alt="" />
+        <span>Удалить</span>
+    </a>
+</div>
 <section id="mail">
     @{ if (@Model.HtmlBody.ToHtmlString().Length > 0)
         {

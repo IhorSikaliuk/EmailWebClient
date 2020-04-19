@@ -45,19 +45,29 @@ namespace EmailWebClient.Controllers
         }
         public int GetMaxPages(){
             IMailFolder folder = (IMailFolder)Session["folder"];
-            folder.Open(FolderAccess.ReadOnly);
+            if (!folder.IsOpen) folder.Open(FolderAccess.ReadWrite);
             int maxPages = Convert.ToInt32( Math.Ceiling((float)folder.Count / mailsOnPage) );
 
             return maxPages;
         }
-        public ActionResult OpenMail(uint Uid, bool seen = false) {
+        public ActionResult OpenMail(uint Uid, bool seen = true) {
             IMailFolder folder = (IMailFolder)Session["folder"];
             UniqueId uid = new UniqueId(Uid);
             MimeMessage message = folder.GetMessageAsync(uid).Result;
-            if (seen) folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
+            if (!seen) folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
             Mail mail = new Mail(uid, message);
 
             return PartialView(mail);
         }
+
+        public void DeleteMail(uint Uid) {
+            IMailFolder folder = (IMailFolder)Session["folder"];
+            UniqueId uid = new UniqueId(Uid);
+            folder.AddFlags(uid, MessageFlags.Deleted, true);
+
+            Response.StatusCode = 303;
+            Response.RedirectLocation = "/";
+        }
+
     }
 }

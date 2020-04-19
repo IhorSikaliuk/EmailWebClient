@@ -62,8 +62,15 @@
 	}
 
 	$("#sidelist").scroll(function () {
-	    if ($("#sidelist").scrollTop() == ($(".message").length + $(".newmessage").length) * $(".message").height() - $("#sidelist").height()) {
+	    if ($("#sidelist").scrollTop() >= ($(".message").length + $(".newmessage").length) * $(".message").height() - $("#sidelist").height()) {
 	        loadItems();
 	    }
-	});
+    });
+
+    $(document).ajaxStart(function () {
+        $('body').addClass('wait');
+    }).ajaxComplete(function () {
+        $('body').removeClass('wait');
+    });
+
 });
