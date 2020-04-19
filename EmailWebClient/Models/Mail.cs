@@ -15,13 +15,14 @@ namespace EmailWebClient.Models
         public MvcHtmlString TextBody { get; set; } = new MvcHtmlString("");
         public MvcHtmlString HtmlBody { get; set; } = new MvcHtmlString("");
         public Mail (IMessageSummary fetch, HeaderList headers) {
+            int shift = 5;
             Uid = fetch.UniqueId;
             Seen = fetch.Flags > 0;
             Subject = headers["subject"];
             From = headers["from"];
             int cut = headers["date"].Length;
-            if (headers["date"].Contains("+")) cut = headers["date"].IndexOf('+') + 5;
-            else if (headers["date"].Contains("-")) cut = headers["date"].IndexOf('-') + 5;
+            if (headers["date"].Contains("+")) cut = headers["date"].IndexOf('+') + shift;
+            else if (headers["date"].Contains("-")) cut = headers["date"].IndexOf('-') + shift;
             Date = Convert.ToDateTime(headers["date"].Substring(0, cut));
         }
         public Mail (UniqueId Uid, MimeMessage message) {

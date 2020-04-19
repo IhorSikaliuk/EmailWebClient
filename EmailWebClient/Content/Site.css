@@ -13,24 +13,22 @@ body.wait *, body.wait {
     cursor: progress !important;
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+    margin: 7px;
+    font-family: monospace;
+    height: 20px;
 }
 
 div {
@@ -89,6 +87,41 @@ div {
     .navbar-brand:hover {
     }
 
+
+.login {
+    position: absolute;
+    font-family: monospace;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ececec;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 4px 8px 20px 7px #82a4b952;
+}
+
+    .login button {
+        left: 50%;
+        transform: translate(-50%, 0%);
+        position: relative;
+        margin-top: 10px;
+        height: 28px;
+        width: 80px;
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .login p {
+        margin-left: 7px;
+    }
+
+.error {
+    color: red;
+    font-family: monospace;
+    font-weight: bold;
+}
 
 #exit {
     float: right;
@@ -191,29 +224,14 @@ div {
 
 .date {
     line-height: 1;
-    font-size: 15px;
+    font-size: 13px;
     display: inline-block;
-    padding-top: 1px;
+    padding-top: 4px;
     width: 32px;
-    height: 34px;
+    height: 30px;
     text-align: center;
     font-family: "Impact", fantasy;
     color: #000a;
-}
-
-.login {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ececec;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 4px 8px 20px 7px #82a4b952;
-}
-
-.error {
-    color: red;
 }
 
 #loading {

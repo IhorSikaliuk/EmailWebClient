@@ -1,7 +1,7 @@
 ﻿<div id="mailinfo">
     <p id="title">@Model.Subject</p>
     <p id="sender">@Model.From</p>
-    <p id="datetime">@Model.Date</p>
+    <p id="datetime">@Model.Date.ToString("g")</p>
 </div>
 <div id="delete">
     <a href="/JS/DeleteMail?Uid=@Model.Uid">
