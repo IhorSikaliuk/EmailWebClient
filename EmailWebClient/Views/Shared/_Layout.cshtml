@@ -8,16 +8,15 @@
     @Scripts.Render("/Scripts/jquery-3.4.1.js")
     @Scripts.Render("/Scripts/jquery.unobtrusive-ajax.js")
     @RenderSection("scripts", required: false)
-    @Styles.Render("~/Content/css")
-    @*<link href="/Content/Site.css?v=@DateTime.Now.Millisecond" rel="stylesheet" runat="server" type="text/css" />*@
+    @*@Styles.Render("~/Content/css")*@
+    <link href="/Content/Site.css?v=@DateTime.Now.Millisecond" rel="stylesheet" runat="server" type="text/css" />
 </head>
 <body>
     <div id="navbar">
         @Html.ActionLink("Email", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
         <ul class="top">
-            <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-            <li>@Html.ActionLink("О программе", "About", "Home")</li>
-            <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+            <li>@Html.ActionLink("Главная", "Index", "Home")</li>
+            <li><a target="_blank" href="https://github.com/IhorSikaliuk">Мой git</a></li>
         </ul>
         @if (@Session.Count > 0)
         {

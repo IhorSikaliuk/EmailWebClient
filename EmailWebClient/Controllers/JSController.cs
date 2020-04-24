@@ -3,7 +3,6 @@ using MailKit;
 using MimeKit;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Web.Mvc;
 
 namespace EmailWebClient.Controllers
@@ -23,8 +22,7 @@ namespace EmailWebClient.Controllers
 
             return messages;
         }
-        public ActionResult MailList(int page = 0)
-        {
+        public ActionResult MailList(int page = 0) {
             IMailFolder folder = (IMailFolder)Session["folder"];
             List<IMessageSummary> fetch = (List<IMessageSummary>) Session["messages"];
             if (page == 0) {
@@ -43,30 +41,12 @@ namespace EmailWebClient.Controllers
 
             return PartialView(mails);
         }
-        public int GetMaxPages(){
+        public int GetMaxPages() {
             IMailFolder folder = (IMailFolder)Session["folder"];
             if (!folder.IsOpen) folder.Open(FolderAccess.ReadWrite);
             int maxPages = Convert.ToInt32( Math.Ceiling((float)folder.Count / mailsOnPage) );
 
             return maxPages;
-        }
-        public ActionResult OpenMail(uint Uid, bool seen = true) {
-            IMailFolder folder = (IMailFolder)Session["folder"];
-            UniqueId uid = new UniqueId(Uid);
-            MimeMessage message = folder.GetMessageAsync(uid).Result;
-            if (!seen) folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
-            Mail mail = new Mail(uid, message);
-
-            return PartialView(mail);
-        }
-
-        public void DeleteMail(uint Uid) {
-            IMailFolder folder = (IMailFolder)Session["folder"];
-            UniqueId uid = new UniqueId(Uid);
-            folder.AddFlags(uid, MessageFlags.Deleted, true);
-
-            Response.StatusCode = 303;
-            Response.RedirectLocation = "/";
         }
 
     }

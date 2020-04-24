@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using EmailWebClient.Models;
 using MailKit;
 using MimeKit;
 using MailKit.Net.Imap;
-using System.Threading;
+using System.IO;
 
 namespace EmailWebClient.Controllers
 {
@@ -72,21 +71,55 @@ namespace EmailWebClient.Controllers
             
             return Index();
         }
+        public ActionResult OpenMail(uint Uid, bool seen = true) {
+            IMailFolder folder = (IMailFolder)Session["folder"];
+            UniqueId uid = new UniqueId(Uid);
+            MimeMessage message = folder.GetMessageAsync(uid).Result;
+            if (!seen) folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
+            Mail mail = new Mail(uid, message);
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            
-            return View();
+            return PartialView(mail);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-            
-            return View();
+        public void DeleteMail(uint Uid){
+            IMailFolder folder = (IMailFolder)Session["folder"];
+            UniqueId uid = new UniqueId(Uid);
+            folder.AddFlags(uid, MessageFlags.Deleted, true);
+
+            Response.StatusCode = 303;
+            Response.RedirectLocation = "/";
         }
-        
+
+        public FileResult Download(uint Uid, string Name) { //retuns file from message attachments
+            IMailFolder folder = (IMailFolder)Session["folder"];
+            UniqueId uid = new UniqueId(Uid);
+            var task = folder.GetMessageAsync(uid);
+            var attachments = task.Result.Attachments;
+            
+            foreach (MimeEntity attachment in attachments) {
+                if (attachment.ContentDisposition.FileName == Name) {
+                    MemoryStream stream = new MemoryStream();
+                    string fileType = attachment.ContentType.MimeType;
+                    if (attachment is MessagePart)
+                    {
+                        var part = (MessagePart)attachment;
+                        part.Message.WriteTo(stream);
+                    }
+                    else
+                    {
+                        var part = (MimePart)attachment;
+                        part.Content.DecodeTo(stream);
+                    }
+
+
+                    byte[] file = stream.ToArray();
+                    return File(file, fileType, Name);
+                }
+            }
+
+            return null;
+        }
+
         public void Exit() {
             Session.Clear();
             Session.Abandon();

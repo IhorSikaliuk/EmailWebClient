@@ -1,6 +1,7 @@
 ﻿using MailKit;
 using MimeKit;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace EmailWebClient.Models
@@ -14,6 +15,7 @@ namespace EmailWebClient.Models
         public DateTime Date { get; set; }
         public MvcHtmlString TextBody { get; set; } = new MvcHtmlString("");
         public MvcHtmlString HtmlBody { get; set; } = new MvcHtmlString("");
+        public List<string> Attachments { get; set; } = null;
         public Mail (IMessageSummary fetch, HeaderList headers) {
             int shift = 5;
             Uid = fetch.UniqueId;
@@ -34,6 +36,10 @@ namespace EmailWebClient.Models
             if (message.TextBody != null)
                 TextBody = new MvcHtmlString(message.TextBody.Replace(System.Environment.NewLine, "<br>"));
             HtmlBody = new MvcHtmlString(message.HtmlBody);
+            foreach (var attachment in message.Attachments) {
+                if (Attachments == null) Attachments = new List<string>();
+                Attachments.Add(attachment.ContentDisposition.FileName);
+            }
         }
     }
 }

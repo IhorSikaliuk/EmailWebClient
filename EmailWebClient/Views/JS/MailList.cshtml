@@ -1,7 +1,7 @@
 ﻿@for (int i = 0; i < @Model.Count; i++)
 {
     if (@Model[i].Seen) {
-        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid">
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/Home/OpenMail?Uid=@Model[i].Uid">
             <div class="message">
                 <span class="from">@Model[i].From</span>
                 <span class="date">@Model[i].Date.ToString("dd\nMMM")</span>
@@ -10,7 +10,7 @@
         </a>
     }
     else {
-        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/JS/OpenMail?Uid=@Model[i].Uid&seen=false">
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#content" href="/Home/OpenMail?Uid=@Model[i].Uid&seen=false">
             <div class="newmessage">
                 <span class="from">@Model[i].From</span>
                 <span class="date">@Model[i].Date.ToString("dd\nMMM")</span>

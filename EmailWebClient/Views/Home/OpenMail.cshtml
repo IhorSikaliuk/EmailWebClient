@@ -1,0 +1,34 @@
+﻿<div id="mailinfo">
+    <div id="delete">
+        <a href="/Home/DeleteMail?Uid=@Model.Uid">
+            <img src="/Content/images/delete.png" alt="" />
+            <span>Удалить</span>
+        </a>
+    </div>
+    <p id="title">@Model.Subject</p>
+    @if (Model.Attachments != null) { 
+        <button id="attachments"><img src="/Content/images/paperclip.png" alt=""></button>
+        <div id="file-list">
+            @foreach (var attachment in Model.Attachments) {
+                <a target="_blank" href="/Home/Download?Uid=@Model.Uid&Name=@attachment"><p>@attachment</p></a>
+            }
+        </div>
+    }
+    <p id="datetime">@Model.Date.ToString("g")</p>
+    <p id="sender">@Model.From</p>
+</div>
+<section id="mail">
+    @{ if (@Model.HtmlBody.ToHtmlString().Length > 0)
+        {
+            @Model.HtmlBody
+        }
+        else
+        {
+            <div id="textbody">
+                <p>
+                    @Model.TextBody
+                </p>
+            </div>
+        }
+    }
+</section>
