@@ -7,7 +7,6 @@
     <title>@ViewBag.Title</title>
     @Scripts.Render("/Scripts/jquery-3.4.1.js")
     @Scripts.Render("/Scripts/jquery.unobtrusive-ajax.js")
-    @RenderSection("scripts", required: false)
     @*@Styles.Render("~/Content/css")*@
     <link href="/Content/Site.css?v=@DateTime.Now.Millisecond" rel="stylesheet" runat="server" type="text/css" />
 </head>
@@ -20,10 +19,11 @@
         </ul>
         @if (@Session.Count > 0)
         {
-            @Html.ActionLink("Выйти", "Exit", "Home", new { @id = "exit"})
+            @Html.ActionLink("Выйти", "Exit", "Home", new { @id = "exit" })
         }
     </div>
     @RenderBody()
 
+    @RenderSection("scripts", required: false)
 </body>
 </html>

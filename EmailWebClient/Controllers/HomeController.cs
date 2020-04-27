@@ -5,6 +5,7 @@ using MailKit;
 using MimeKit;
 using MailKit.Net.Imap;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace EmailWebClient.Controllers
 {
@@ -28,10 +29,10 @@ namespace EmailWebClient.Controllers
             return View("Index");
         }
         [HttpPost]
-        public ActionResult Index(Authentication login) {
+        public async Task<ActionResult> Index(Authentication login) {
             Response.Cookies["serverId"].Value = login.Server.Id.ToString();
             try {
-                login.Server = GetServer(login.Server.Id);
+                login.Server = await Task.Run(() => GetServer(login.Server.Id));
             }
             catch (Exception) {
                 ViewData["Login error"] = "Неизвесная ошибка";
@@ -40,9 +41,9 @@ namespace EmailWebClient.Controllers
             
             ImapClient client = new ImapClient();
             try {
-                client.Connect(login.Server.Ip, login.Server.Port, useSsl: login.Server.Ssl);
+                await client.ConnectAsync(login.Server.Ip, login.Server.Port, MailKit.Security.SecureSocketOptions.Auto);
             }
-            catch(Exception) {
+            catch(Exception e) {
                 ViewData["Login error"] = $"Почтовый сервер {login.Server.Name} не доступен. Попробуйте позже.";
                 return Index();
             }
@@ -52,7 +53,7 @@ namespace EmailWebClient.Controllers
             }
 
             try {
-                client.Authenticate(login.Email, login.Password);
+                await client.AuthenticateAsync(login.Email, login.Password);
             }
             catch (Exception) {
                 ViewData["Login error"] = "Неверные ел. почта и/или пароль.";
@@ -71,12 +72,12 @@ namespace EmailWebClient.Controllers
             
             return Index();
         }
-        public ActionResult OpenMail(uint Uid, bool seen = true) {
+        public async Task<ActionResult> OpenMail(uint Uid, bool seen = true) {
             IMailFolder folder = (IMailFolder)Session["folder"];
             UniqueId uid = new UniqueId(Uid);
-            MimeMessage message = folder.GetMessageAsync(uid).Result;
-            if (!seen) folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
-            Mail mail = new Mail(uid, message);
+            MimeMessage message = await folder.GetMessageAsync(uid);
+            if (!seen) await folder.AddFlagsAsync(new UniqueId(Uid), MessageFlags.Seen, true);
+            Mail mail = await Task.Run(() => new Mail(uid, message));
 
             return PartialView(mail);
         }
@@ -84,7 +85,7 @@ namespace EmailWebClient.Controllers
         public void DeleteMail(uint Uid){
             IMailFolder folder = (IMailFolder)Session["folder"];
             UniqueId uid = new UniqueId(Uid);
-            folder.AddFlags(uid, MessageFlags.Deleted, true);
+            folder.AddFlagsAsync(uid, MessageFlags.Deleted, true);
 
             Response.StatusCode = 303;
             Response.RedirectLocation = "/";

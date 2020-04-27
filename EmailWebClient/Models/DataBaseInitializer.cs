@@ -2,7 +2,7 @@
 
 namespace EmailWebClient.Models
 {
-    public class DataBaseInitializer : DropCreateDatabaseAlways<DataBaseContext>
+    public class DataBaseInitializer : DropCreateDatabaseAlways<DataBaseContext> 
     {
         protected override void Seed(DataBaseContext context)
         {

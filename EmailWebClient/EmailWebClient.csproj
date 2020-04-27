@@ -148,15 +148,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004211213437_InitialCreate.cs" />
-    <Compile Include="Migrations\202004211213437_InitialCreate.designer.cs">
-      <DependentUpon>202004211213437_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004211730253_InitialCreate1.cs" />
-    <Compile Include="Migrations\202004211730253_InitialCreate1.designer.cs">
-      <DependentUpon>202004211730253_InitialCreate1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Models\DataBaseContext.cs" />
     <Compile Include="Models\DataBaseInitializer.cs" />
@@ -176,6 +167,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -198,14 +190,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\sidelist.loader.js" />
     <Content Include="Views\Home\OpenMail.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004211213437_InitialCreate.resx">
-      <DependentUpon>202004211213437_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004211730253_InitialCreate1.resx">
-      <DependentUpon>202004211730253_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

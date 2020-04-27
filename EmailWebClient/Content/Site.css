@@ -165,16 +165,16 @@ div {
         color: #337ab7;
         text-decoration: none;
     }
-
-.message {
-    background-color: #dde;
-    width: 250px;
-    height: 84px;
-    outline: 1px;
-    outline-color: #aaa;
-    outline-style: auto;
-    transition: 0.3s;
-}
+         
+    .message {
+        background-color: #dde;
+        width: 250px;
+        height: 84px;
+        outline: 1px;
+        outline-color: #aaa;
+        outline-style: auto;
+        transition: 0.3s;
+    }
 
     .message:hover {
         background-color: #b7c5ff;
@@ -358,6 +358,7 @@ div {
     text-align: -webkit-center;
     contain: content;
     min-width: 600px;
+    scroll-behavior: smooth;
 }
 
     #mail p {
@@ -408,3 +409,23 @@ div {
         font-size: 14px;
         line-height: 1.8;
     }
+
+@media screen and (max-width: 768px) {
+
+    #content {
+        margin-left: 20px;
+    }
+
+    #sidelist {
+        position: fixed;
+        left: -250px;
+        padding-right: 20px;
+        transition: all 200ms;
+    }
+
+        #sidelist:hover {
+            left: 0px;
+            padding-right: 0;
+        }
+
+} 
